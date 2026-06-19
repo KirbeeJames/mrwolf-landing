@@ -123,7 +123,10 @@
       font-weight: 800; font-size: 1.1rem; color: var(--purple);
       text-decoration: none;
     }
-    .nav-brand span { font-size: 1.4rem; }
+    .nav-brand img {
+      height: 36px; width: auto; border-radius: 8px;
+      box-shadow: 0 0 12px rgba(124,58,237,0.3);
+    }
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
     .nav-links a {
       text-decoration: none; color: var(--text-secondary);
@@ -148,6 +151,20 @@
       z-index: -1;
     }
     .hero-content { position: relative; max-width: 720px; margin: 0 auto; }
+    .hero-logo {
+      width: 160px; height: auto;
+      border-radius: 28px;
+      margin-bottom: 1.5rem;
+      box-shadow:
+        0 0 40px rgba(124,58,237,0.3),
+        0 0 80px rgba(124,58,237,0.1),
+        0 8px 32px rgba(0,0,0,0.4);
+      animation: logoFloat 6s ease-in-out infinite;
+    }
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
     .hero h1 {
       font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 900;
@@ -322,13 +339,15 @@
     }
     .privacy a { color: var(--purple-bright); }
     .privacy a:hover { color: var(--purple); }
-    .privacy ul { list-style: none; padding: 0; }
+    .privacy ul {
+      list-style: none; padding: 0;
+    }
     .privacy ul li {
       padding: 0.25rem 0 0.25rem 1.5rem;
       position: relative;
     }
     .privacy ul li::before {
-      content: '\2713';
+      content: '\u2713';
       position: absolute; left: 0;
       color: var(--green); font-weight: 700;
     }
@@ -358,7 +377,7 @@
 
   <nav>
     <a href="#" class="nav-brand">
-      <span>🐺</span> Mr. Wolf
+      <img src="https://chroma-clock-app.vercel.app/mrwolf-hero-t.png" alt="Mr. Wolf logo"> Mr. Wolf
     </a>
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
@@ -369,6 +388,7 @@
 
   <section class="hero">
     <div class="hero-content">
+      <img src="https://chroma-clock-app.vercel.app/mrwolf-hero-t.png" alt="Mr. Wolf Timer & Clock Teacher" class="hero-logo">
       <h1>Meet <span class="accent">Mr. Wolf</span> — your child's favourite time-teaching companion</h1>
       <p>The fun, colourful app for children to master telling the time through interactive timers, real clock faces, exciting games and quizzes.</p>
       <a href="https://apps.apple.com/app/id6775829652" class="app-badge" aria-label="Download on the App Store">
@@ -518,7 +538,7 @@
         num.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
         num.style.color = numColors[n - 1];
         num.style.animationDelay = (Math.random() * 15) + 's';
-        num.style.animationDuration = (18 + Math.random() * 12) + 's';
+        num.style.animationDuration = (18 + Math.random()g * 12) + 's';
         container.appendChild(num);
       }
 
