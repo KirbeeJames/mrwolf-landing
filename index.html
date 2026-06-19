@@ -42,6 +42,7 @@
       overflow-x: hidden;
     }
 
+    /* ===== ANIMATED BUBBLES BACKGROUND ===== */
     .bubbles-bg {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -62,6 +63,7 @@
     .bubble.large { width: 32px; height: 32px; opacity: 0.25; }
     .bubble.xl { width: 50px; height: 50px; opacity: 0.15; }
 
+    /* Bubble colors matching the app */
     .bubble.c-purple { background: #A78BFA; box-shadow: 0 0 12px rgba(167,139,250,0.4); }
     .bubble.c-orange { background: #FB923C; box-shadow: 0 0 12px rgba(251,146,60,0.4); }
     .bubble.c-green { background: #4ADE80; box-shadow: 0 0 12px rgba(74,222,128,0.4); }
@@ -80,6 +82,7 @@
       100% { transform: translateY(-60vh) translateX(0) scale(1); opacity: 0; }
     }
 
+    /* Floating numbers like the app background */
     .bg-number {
       position: absolute;
       font-family: 'Nunito', sans-serif;
@@ -95,6 +98,7 @@
       66% { transform: translateY(8px) rotate(-1deg); }
     }
 
+    /* Small star dots */
     .star-dot {
       position: absolute;
       width: 3px; height: 3px;
@@ -110,6 +114,7 @@
       50% { opacity: 0.6; }
     }
 
+    /* ===== NAV ===== */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(15, 23, 41, 0.85);
@@ -134,6 +139,7 @@
     }
     .nav-links a:hover { color: var(--purple); }
 
+    /* ===== HERO ===== */
     .hero {
       padding: 8rem 1.5rem 4rem;
       text-align: center;
@@ -198,6 +204,7 @@
       box-shadow: 0 0 24px rgba(124,58,237,0.15);
     }
 
+    /* ===== FEATURES ===== */
     .features {
       padding: 5rem 1.5rem;
       max-width: 1100px; margin: 0 auto;
@@ -253,6 +260,7 @@
     .icon-night { background: rgba(96,165,250,0.15); }
     .icon-safe { background: rgba(45,212,191,0.15); }
 
+    /* Colorful card accent borders */
     .feature-card:nth-child(1) { border-top: 2px solid var(--yellow); }
     .feature-card:nth-child(2) { border-top: 2px solid var(--purple); }
     .feature-card:nth-child(3) { border-top: 2px solid var(--green); }
@@ -260,6 +268,7 @@
     .feature-card:nth-child(5) { border-top: 2px solid var(--blue); }
     .feature-card:nth-child(6) { border-top: 2px solid var(--teal); }
 
+    /* ===== TRUST ===== */
     .trust {
       padding: 3rem 1.5rem;
       text-align: center;
@@ -275,6 +284,7 @@
     }
     .trust-item span { font-size: 1.3rem; }
 
+    /* ===== SUPPORT ===== */
     .support {
       padding: 4rem 1.5rem;
       max-width: 700px; margin: 0 auto;
@@ -305,6 +315,7 @@
     }
     .support-card a:hover { text-decoration: underline; color: var(--purple); }
 
+    /* ===== PRIVACY ===== */
     .privacy {
       padding: 4rem 1.5rem;
       max-width: 760px; margin: 0 auto;
@@ -347,11 +358,12 @@
       position: relative;
     }
     .privacy ul li::before {
-      content: '\u2713';
+      content: '\2713';
       position: absolute; left: 0;
       color: var(--green); font-weight: 700;
     }
 
+    /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 2rem 1.5rem;
@@ -363,6 +375,7 @@
     footer a { color: var(--purple); text-decoration: none; }
     footer a:hover { text-decoration: underline; color: var(--purple-bright); }
 
+    /* ===== MOBILE ===== */
     @media (max-width: 640px) {
       .nav-links { display: none; }
       .features-grid { grid-template-columns: 1fr; }
@@ -373,8 +386,10 @@
 </head>
 <body>
 
+  <!-- ANIMATED BUBBLES BACKGROUND -->
   <div class="bubbles-bg" id="bubbles-bg"></div>
 
+  <!-- NAV -->
   <nav>
     <a href="#" class="nav-brand">
       <img src="https://chroma-clock-app.vercel.app/mrwolf-hero-t.png" alt="Mr. Wolf logo"> Mr. Wolf
@@ -386,96 +401,101 @@
     </ul>
   </nav>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
       <img src="https://chroma-clock-app.vercel.app/mrwolf-hero-t.png" alt="Mr. Wolf Timer & Clock Teacher" class="hero-logo">
-      <h1>Meet <span class="accent">Mr. Wolf</span> — your child's favourite time-teaching companion</h1>
+      <h1>Meet <span class="accent">Mr. Wolf</span> \u2014 your child\u2019s favourite time-teaching companion</h1>
       <p>The fun, colourful app for children to master telling the time through interactive timers, real clock faces, exciting games and quizzes.</p>
       <a href="https://apps.apple.com/app/id6775829652" class="app-badge" aria-label="Download on the App Store">
         <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
       </a>
       <div class="hero-ages">
-        <span>🎯</span> Designed for children aged 4–10
+        <span>\uD83C\uDFAF</span> Designed for children aged 4\u201310
       </div>
     </div>
   </section>
 
+  <!-- FEATURES -->
   <section class="features" id="features">
     <h2>Everything they need to learn the time</h2>
-    <p class="subtitle">Six tools in one app — no ads, no subscriptions, no data collection.</p>
+    <p class="subtitle">Six tools in one app \u2014 no ads, no subscriptions, no data collection.</p>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon icon-timer">⏱️</div>
+        <div class="feature-icon icon-timer">\u23F1\uFE0F</div>
         <h3>Colourful Timers</h3>
         <p>Visual countdown timers with colour-coded segments that make time tangible. Children see and feel time passing as the colours sweep around the clock face.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon icon-clock">🕐</div>
+        <div class="feature-icon icon-clock">\uD83D\uDD50</div>
         <h3>Real Clock Faces</h3>
         <p>Interactive analogue and digital clocks that children can manipulate. Drag the hands, read the time, and switch between 12-hour and 24-hour formats.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon icon-games">🎮</div>
+        <div class="feature-icon icon-games">\uD83C\uDFAE</div>
         <h3>5 Fun Games</h3>
         <p>From matching clock times to racing against Mr. Wolf, five different game modes keep children engaged while building real time-telling confidence.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon icon-quiz">❓</div>
+        <div class="feature-icon icon-quiz">\u2753</div>
         <h3>Quiz Mode</h3>
         <p>Test their knowledge with progressive quizzes that adapt from simple o'clock times through quarter hours to precise five-minute intervals.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon icon-night">🌙</div>
+        <div class="feature-icon icon-night">\uD83C\uDF19</div>
         <h3>Day & Night Mode</h3>
         <p>A gentle night mode with darker colours for bedtime routines, plus a day mode that teaches the concept of AM and PM naturally.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon icon-safe">🔒</div>
+        <div class="feature-icon icon-safe">\uD83D\uDD12</div>
         <h3>100% Child-Safe</h3>
         <p>Zero data collection, zero ads, zero in-app purchases, zero external links. Works completely offline. Designed with COPPA and GDPR-K compliance.</p>
       </div>
     </div>
   </section>
 
+  <!-- TRUST -->
   <section class="trust">
     <div class="trust-grid">
-      <div class="trust-item"><span>🚫</span> No ads</div>
-      <div class="trust-item"><span>🔒</span> No data collection</div>
-      <div class="trust-item"><span>📶</span> Works offline</div>
-      <div class="trust-item"><span>💳</span> No in-app purchases</div>
-      <div class="trust-item"><span>👶</span> COPPA compliant</div>
+      <div class="trust-item"><span>\uD83D\uDEAB</span> No ads</div>
+      <div class="trust-item"><span>\uD83D\uDD12</span> No data collection</div>
+      <div class="trust-item"><span>\uD83D\uDCF6</span> Works offline</div>
+      <div class="trust-item"><span>\uD83D\uDCB3</span> No in-app purchases</div>
+      <div class="trust-item"><span>\uD83D\uDC76</span> COPPA compliant</div>
     </div>
   </section>
 
+  <!-- SUPPORT -->
   <section class="support" id="support">
     <h2>Support</h2>
     <p>Having trouble or have a suggestion? We'd love to hear from you.</p>
     <div class="support-card">
       <p style="margin-bottom: 0.75rem; color: var(--text-primary);">Email us at</p>
-      <a href="mailto:james@gainautomations.com" style="font-size: 1.15rem;">james@gainautomations.com</a>
+      <a href="mailto:info@gainautomations.com" style="font-size: 1.15rem;">info@gainautomations.com</a>
       <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
         We typically respond within 24 hours.
       </p>
     </div>
   </section>
 
+  <!-- PRIVACY -->
   <section class="privacy" id="privacy">
     <h2>Privacy Policy</h2>
     <p class="updated">Last updated: May 2025</p>
 
     <div class="privacy-summary">
-      🔒 Short version: We collect zero personal data. The app works fully offline and never communicates with any server.
+      \uD83D\uDD12 Short version: We collect zero personal data. The app works fully offline and never communicates with any server.
     </div>
 
     <h3>Who We Are</h3>
-    <p>Mr. Wolf Timer & Clock Teacher ("the App") is developed and published by Gain Automations. If you have any questions about this policy, please contact us at <a href="mailto:privacy@gainautomations.com">privacy@gainautomations.com</a>.</p>
+    <p>Mr. Wolf Timer & Clock Teacher (\"the App\") is developed and published by Gain Automations. If you have any questions about this policy, please contact us at <a href=\"mailto:privacy@gainautomations.com\">privacy@gainautomations.com</a>.</p>
 
     <h3>Information We Collect</h3>
     <p>We collect no personal information whatsoever. The App does not require an account, does not ask for your name, email address, location, or any other personal details.</p>
     <p>The App stores only anonymous, device-local preferences (such as your chosen language and colour theme). This data never leaves your device and is not accessible to us.</p>
 
-    <h3>Children's Privacy (COPPA & GDPR-K)</h3>
-    <p>Mr. Wolf Timer & Clock Teacher is designed for children aged 4–10. We take children's privacy extremely seriously and fully comply with COPPA and the GDPR's provisions for children's data.</p>
+    <h3>Children\u2019s Privacy (COPPA & GDPR-K)</h3>
+    <p>Mr. Wolf Timer & Clock Teacher is designed for children aged 4\u201310. We take children\u2019s privacy extremely seriously and fully comply with COPPA and the GDPR\u2019s provisions for children\u2019s data.</p>
     <ul>
       <li>We do not collect any personal data from children or adults</li>
       <li>We do not display advertising of any kind</li>
@@ -491,25 +511,27 @@
     <p>The App does not integrate any third-party SDKs, advertising networks, analytics platforms, or social media services.</p>
 
     <h3>Data Storage</h3>
-    <p>All data (language preference, theme selection) is stored locally on your device using the operating system's standard local storage mechanisms. Uninstalling the App removes all such data.</p>
+    <p>All data (language preference, theme selection) is stored locally on your device using the operating system\u2019s standard local storage mechanisms. Uninstalling the App removes all such data.</p>
 
     <h3>In-App Purchases</h3>
     <p>There are no in-app purchases. The App is provided as a single, complete purchase with all features included.</p>
 
     <h3>Changes to This Policy</h3>
-    <p>If we ever update this Privacy Policy, the new version will be posted at this URL and the "Last updated" date above will be changed.</p>
+    <p>If we ever update this Privacy Policy, the new version will be posted at this URL and the \"Last updated\" date above will be changed.</p>
 
     <h3>Contact Us</h3>
-    <p>For any privacy-related questions or concerns, please email us at <a href="mailto:privacy@gainautomations.com">privacy@gainautomations.com</a>.</p>
+    <p>For any privacy-related questions or concerns, please email us at <a href=\"mailto:privacy@gainautomations.com\">privacy@gainautomations.com</a>.</p>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <p>&copy; 2026 James Kirby. All rights reserved.</p>
-    <p style="margin-top: 0.5rem;">
-      <a href="#privacy">Privacy Policy</a> &middot; <a href="#support">Support</a>
+    <p style=\"margin-top: 0.5rem;\">
+      <a href=\"#privacy\">Privacy Policy</a> &middot; <a href=\"#support\">Support</a>
     </p>
   </footer>
 
+  <!-- BUBBLE & NUMBER GENERATION SCRIPT -->
   <script>
     (function() {
       const container = document.getElementById('bubbles-bg');
@@ -517,6 +539,7 @@
       const sizes = ['small','small','small','medium','medium','large','xl'];
       const numColors = ['#A78BFA','#FB923C','#4ADE80','#2DD4BF','#F472B6','#FACC15','#F87171','#60A5FA','#C084FC','#FB7185','#34D399','#FBBF24'];
 
+      // Create floating bubbles
       for (let i = 0; i < 35; i++) {
         const bubble = document.createElement('div');
         const size = sizes[Math.floor(Math.random() * sizes.length)];
@@ -529,6 +552,7 @@
         container.appendChild(bubble);
       }
 
+      // Create floating numbers 1-12
       for (let n = 1; n <= 12; n++) {
         const num = document.createElement('div');
         num.className = 'bg-number';
@@ -538,10 +562,11 @@
         num.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
         num.style.color = numColors[n - 1];
         num.style.animationDelay = (Math.random() * 15) + 's';
-        num.style.animationDuration = (18 + Math.random()g * 12) + 's';
+        num.style.animationDuration = (18 + Math.random() * 12) + 's';
         container.appendChild(num);
       }
 
+      // Create tiny star dots
       for (let i = 0; i < 40; i++) {
         const star = document.createElement('div');
         star.className = 'star-dot';
