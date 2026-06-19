@@ -8,122 +8,531 @@
   <meta name="apple-itunes-app" content="app-id=6775829652">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --purple: #7C3AED; --purple-dark: #6D28D9; --purple-light: #EDE9FE; --orange: #F97316; --red: #EF4444; --green: #22C55E; --yellow: #EAB308; --blue: #3B82F6; --text: #1E293B; --text-light: #64748B; --bg: #FAFAF9; --white: #FFFFFF; }
+
+    :root {
+      --purple: #A78BFA;
+      --purple-bright: #C4B5FD;
+      --purple-glow: #7C3AED;
+      --orange: #FB923C;
+      --red: #F87171;
+      --green: #4ADE80;
+      --yellow: #FACC15;
+      --blue: #60A5FA;
+      --teal: #2DD4BF;
+      --pink: #F472B6;
+      --bg-dark: #0F1729;
+      --bg-card: rgba(30, 41, 70, 0.7);
+      --bg-card-border: rgba(124, 58, 237, 0.15);
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+    }
+
     html { scroll-behavior: smooth; }
-    body { font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.06); padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-    .nav-brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.1rem; color: var(--purple); text-decoration: none; }
+
+    body {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .bubbles-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: floatBubble linear infinite;
+    }
+
+    .bubble.small { width: 8px; height: 8px; opacity: 0.4; }
+    .bubble.medium { width: 18px; height: 18px; opacity: 0.35; }
+    .bubble.large { width: 32px; height: 32px; opacity: 0.25; }
+    .bubble.xl { width: 50px; height: 50px; opacity: 0.15; }
+
+    .bubble.c-purple { background: #A78BFA; box-shadow: 0 0 12px rgba(167,139,250,0.4); }
+    .bubble.c-orange { background: #FB923C; box-shadow: 0 0 12px rgba(251,146,60,0.4); }
+    .bubble.c-green { background: #4ADE80; box-shadow: 0 0 12px rgba(74,222,128,0.4); }
+    .bubble.c-teal { background: #2DD4BF; box-shadow: 0 0 12px rgba(45,212,191,0.4); }
+    .bubble.c-pink { background: #F472B6; box-shadow: 0 0 12px rgba(244,114,182,0.4); }
+    .bubble.c-yellow { background: #FACC15; box-shadow: 0 0 12px rgba(250,204,21,0.4); }
+    .bubble.c-red { background: #F87171; box-shadow: 0 0 12px rgba(248,113,113,0.4); }
+    .bubble.c-blue { background: #60A5FA; box-shadow: 0 0 12px rgba(96,165,250,0.4); }
+    .bubble.c-brown { background: #D97706; box-shadow: 0 0 12px rgba(217,119,6,0.3); }
+
+    @keyframes floatBubble {
+      0% { transform: translateY(0) translateX(0) scale(1); }
+      25% { transform: translateY(-15vh) translateX(10px) scale(1.05); }
+      50% { transform: translateY(-30vh) translateX(-8px) scale(0.95); }
+      75% { transform: translateY(-45vh) translateX(12px) scale(1.02); }
+      100% { transform: translateY(-60vh) translateX(0) scale(1); opacity: 0; }
+    }
+
+    .bg-number {
+      position: absolute;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      opacity: 0.12;
+      pointer-events: none;
+      animation: floatNum 20s ease-in-out infinite;
+    }
+
+    @keyframes floatNum {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      33% { transform: translateY(-12px) rotate(2deg); }
+      66% { transform: translateY(8px) rotate(-1deg); }
+    }
+
+    .star-dot {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: white;
+      opacity: 0.3;
+      pointer-events: none;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.6; }
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15, 23, 41, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+      padding: 0.75rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 800; font-size: 1.1rem; color: var(--purple);
+      text-decoration: none;
+    }
     .nav-brand span { font-size: 1.4rem; }
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-secondary);
+      font-weight: 600; font-size: 0.9rem; transition: color 0.2s;
+    }
     .nav-links a:hover { color: var(--purple); }
-    .hero { padding: 8rem 1.5rem 4rem; text-align: center; background: linear-gradient(180deg, var(--purple-light) 0%, var(--bg) 100%); position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 15% 30%, rgba(249,115,22,0.08) 0%, transparent 50%), radial-gradient(circle at 85% 60%, rgba(124,58,237,0.08) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(34,197,94,0.06) 0%, transparent 50%); pointer-events: none; }
+
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(124,58,237,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(251,146,60,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 90%, rgba(45,212,191,0.06) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: -1;
+    }
     .hero-content { position: relative; max-width: 720px; margin: 0 auto; }
-    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: var(--text); }
-    .hero h1 .accent { color: var(--purple); }
-    .hero p { font-size: 1.15rem; color: var(--text-light); max-width: 540px; margin: 0 auto 2rem; }
-    .app-badge { display: inline-block; transition: transform 0.2s; }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    .hero h1 .accent {
+      background: linear-gradient(135deg, var(--purple-bright), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.15rem; color: var(--text-secondary);
+      max-width: 540px; margin: 0 auto 2rem;
+    }
+    .app-badge {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
     .app-badge:hover { transform: scale(1.05); }
     .app-badge img { height: 54px; }
-    .hero-ages { margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem; background: var(--white); border-radius: 100px; padding: 0.5rem 1.25rem; font-weight: 700; font-size: 0.95rem; color: var(--purple); box-shadow: 0 2px 12px rgba(124,58,237,0.1); }
-    .features { padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
-    .features h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .features .subtitle { text-align: center; color: var(--text-light); margin-bottom: 3rem; font-size: 1.05rem; }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .feature-card { background: var(--white); border-radius: 16px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; }
-    .feature-card:hover { transform: translateY(-2px); box-shadow: 0 4px 24px rgba(124,58,237,0.1); }
-    .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
-    .feature-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .feature-card p { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
-    .icon-timer { background: #FEF3C7; } .icon-clock { background: #EDE9FE; } .icon-games { background: #DCFCE7; } .icon-quiz { background: #FEE2E2; } .icon-night { background: #E0E7FF; } .icon-safe { background: #F0FDF4; }
-    .trust { padding: 3rem 1.5rem; text-align: center; }
-    .trust-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 800px; margin: 0 auto; }
-    .trust-item { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--text-light); }
+    .hero-ages {
+      margin-top: 1.5rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 100px; padding: 0.5rem 1.25rem;
+      font-weight: 700; font-size: 0.95rem; color: var(--purple-bright);
+      box-shadow: 0 0 24px rgba(124,58,237,0.15);
+    }
+
+    .features {
+      padding: 5rem 1.5rem;
+      max-width: 1100px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .features h2 {
+      text-align: center; font-size: 2rem; font-weight: 900;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--yellow), var(--orange), var(--red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .features .subtitle {
+      text-align: center; color: var(--text-secondary);
+      margin-bottom: 3rem; font-size: 1.05rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(8px);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(124,58,237,0.2);
+      border-color: rgba(124, 58, 237, 0.3);
+    }
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+      font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    .feature-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+
+    .icon-timer { background: rgba(250,204,21,0.15); }
+    .icon-clock { background: rgba(167,139,250,0.15); }
+    .icon-games { background: rgba(74,222,128,0.15); }
+    .icon-quiz { background: rgba(248,113,113,0.15); }
+    .icon-night { background: rgba(96,165,250,0.15); }
+    .icon-safe { background: rgba(45,212,191,0.15); }
+
+    .feature-card:nth-child(1) { border-top: 2px solid var(--yellow); }
+    .feature-card:nth-child(2) { border-top: 2px solid var(--purple); }
+    .feature-card:nth-child(3) { border-top: 2px solid var(--green); }
+    .feature-card:nth-child(4) { border-top: 2px solid var(--red); }
+    .feature-card:nth-child(5) { border-top: 2px solid var(--blue); }
+    .feature-card:nth-child(6) { border-top: 2px solid var(--teal); }
+
+    .trust {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .trust-grid {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
+      max-width: 800px; margin: 0 auto;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 0.95rem; color: var(--text-secondary);
+    }
     .trust-item span { font-size: 1.3rem; }
-    .support { padding: 4rem 1.5rem; max-width: 700px; margin: 0 auto; }
-    .support h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; text-align: center; }
-    .support p { text-align: center; color: var(--text-light); margin-bottom: 2rem; font-size: 1.05rem; }
-    .support-card { background: var(--white); border-radius: 16px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04); text-align: center; }
-    .support-card a { color: var(--purple); text-decoration: none; font-weight: 700; }
-    .support-card a:hover { text-decoration: underline; }
-    .privacy { padding: 4rem 1.5rem; max-width: 760px; margin: 0 auto; }
-    .privacy h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .privacy .updated { color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .privacy-summary { background: #F0FDF4; border-left: 4px solid var(--green); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 2rem; font-weight: 600; }
-    .privacy h3 { font-size: 1.15rem; font-weight: 700; margin: 1.75rem 0 0.5rem; }
-    .privacy p, .privacy li { color: var(--text-light); font-size: 0.95rem; line-height: 1.7; }
+
+    .support {
+      padding: 4rem 1.5rem;
+      max-width: 700px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .support h2 {
+      font-size: 1.8rem; font-weight: 900; margin-bottom: 1rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .support p {
+      text-align: center; color: var(--text-secondary);
+      margin-bottom: 2rem; font-size: 1.05rem;
+    }
+    .support-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(8px);
+      text-align: center;
+    }
+    .support-card a {
+      color: var(--purple-bright); text-decoration: none; font-weight: 700;
+    }
+    .support-card a:hover { text-decoration: underline; color: var(--purple); }
+
+    .privacy {
+      padding: 4rem 1.5rem;
+      max-width: 760px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .privacy h2 {
+      font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--green), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .privacy .updated {
+      color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;
+    }
+    .privacy-summary {
+      background: rgba(74,222,128,0.08);
+      border-left: 4px solid var(--green);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+    .privacy h3 {
+      font-size: 1.15rem; font-weight: 700;
+      margin: 1.75rem 0 0.5rem;
+      color: var(--text-primary);
+    }
+    .privacy p, .privacy li {
+      color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;
+    }
+    .privacy a { color: var(--purple-bright); }
+    .privacy a:hover { color: var(--purple); }
     .privacy ul { list-style: none; padding: 0; }
-    .privacy ul li { padding: 0.25rem 0 0.25rem 1.5rem; position: relative; }
-    .privacy ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
-    footer { text-align: center; padding: 2rem 1.5rem; border-top: 1px solid rgba(0,0,0,0.06); color: var(--text-light); font-size: 0.85rem; }
+    .privacy ul li {
+      padding: 0.25rem 0 0.25rem 1.5rem;
+      position: relative;
+    }
+    .privacy ul li::before {
+      content: '\2713';
+      position: absolute; left: 0;
+      color: var(--green); font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-top: 1px solid rgba(124,58,237,0.15);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      position: relative; z-index: 1;
+    }
     footer a { color: var(--purple); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    @media (max-width: 640px) { .nav-links { display: none; } .features-grid { grid-template-columns: 1fr; } .hero { padding-top: 6rem; } }
+    footer a:hover { text-decoration: underline; color: var(--purple-bright); }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 6rem; }
+      .bg-number { display: none; }
+    }
   </style>
 </head>
 <body>
+
+  <div class="bubbles-bg" id="bubbles-bg"></div>
+
   <nav>
-    <a href="#" class="nav-brand"><span>🐺</span> Mr. Wolf</a>
-    <ul class="nav-links"><li><a href="#features">Features</a></li><li><a href="#support">Support</a></li><li><a href="#privacy">Privacy</a></li></ul>
+    <a href="#" class="nav-brand">
+      <span>🐺</span> Mr. Wolf
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+    </ul>
   </nav>
+
   <section class="hero">
     <div class="hero-content">
       <h1>Meet <span class="accent">Mr. Wolf</span> — your child's favourite time-teaching companion</h1>
       <p>The fun, colourful app for children to master telling the time through interactive timers, real clock faces, exciting games and quizzes.</p>
-      <a href="https://apps.apple.com/app/id6775829652" class="app-badge" aria-label="Download on the App Store"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store"></a>
-      <div class="hero-ages"><span>🎯</span> Designed for children aged 4–10</div>
+      <a href="https://apps.apple.com/app/id6775829652" class="app-badge" aria-label="Download on the App Store">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+      </a>
+      <div class="hero-ages">
+        <span>🎯</span> Designed for children aged 4–10
+      </div>
     </div>
   </section>
+
   <section class="features" id="features">
     <h2>Everything they need to learn the time</h2>
     <p class="subtitle">Six tools in one app — no ads, no subscriptions, no data collection.</p>
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon icon-timer">⏱️</div><h3>Colourful Timers</h3><p>Visual countdown timers with colour-coded segments that make time tangible. Children see and feel time passing as the colours sweep around the clock face.</p></div>
-      <div class="feature-card"><div class="feature-icon icon-clock">🕐</div><h3>Real Clock Faces</h3><p>Interactive analogue and digital clocks that children can manipulate. Drag the hands, read the time, and switch between 12-hour and 24-hour formats.</p></div>
-      <div class="feature-card"><div class="feature-icon icon-games">🎮</div><h3>5 Fun Games</h3><p>From matching clock times to racing against Mr. Wolf, five different game modes keep children engaged while building real time-telling confidence.</p></div>
-      <div class="feature-card"><div class="feature-icon icon-quiz">❓</div><h3>Quiz Mode</h3><p>Test their knowledge with progressive quizzes that adapt from simple o'clock times through quarter hours to precise five-minute intervals.</p></div>
-      <div class="feature-card"><div class="feature-icon icon-night">🌙</div><h3>Day & Night Mode</h3><p>A gentle night mode with darker colours for bedtime routines, plus a day mode that teaches the concept of AM and PM naturally.</p></div>
-      <div class="feature-card"><div class="feature-icon icon-safe">🔒</div><h3>100% Child-Safe</h3><p>Zero data collection, zero ads, zero in-app purchases, zero external links. Works completely offline. Designed with COPPA and GDPR-K compliance.</p></div>
+      <div class="feature-card">
+        <div class="feature-icon icon-timer">⏱️</div>
+        <h3>Colourful Timers</h3>
+        <p>Visual countdown timers with colour-coded segments that make time tangible. Children see and feel time passing as the colours sweep around the clock face.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-clock">🕐</div>
+        <h3>Real Clock Faces</h3>
+        <p>Interactive analogue and digital clocks that children can manipulate. Drag the hands, read the time, and switch between 12-hour and 24-hour formats.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-games">🎮</div>
+        <h3>5 Fun Games</h3>
+        <p>From matching clock times to racing against Mr. Wolf, five different game modes keep children engaged while building real time-telling confidence.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-quiz">❓</div>
+        <h3>Quiz Mode</h3>
+        <p>Test their knowledge with progressive quizzes that adapt from simple o'clock times through quarter hours to precise five-minute intervals.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-night">🌙</div>
+        <h3>Day & Night Mode</h3>
+        <p>A gentle night mode with darker colours for bedtime routines, plus a day mode that teaches the concept of AM and PM naturally.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-safe">🔒</div>
+        <h3>100% Child-Safe</h3>
+        <p>Zero data collection, zero ads, zero in-app purchases, zero external links. Works completely offline. Designed with COPPA and GDPR-K compliance.</p>
+      </div>
     </div>
   </section>
-  <section class="trust"><div class="trust-grid"><div class="trust-item"><span>🚫</span> No ads</div><div class="trust-item"><span>🔒</span> No data collection</div><div class="trust-item"><span>📶</span> Works offline</div><div class="trust-item"><span>💳</span> No in-app purchases</div><div class="trust-item"><span>👶</span> COPPA compliant</div></div></section>
+
+  <section class="trust">
+    <div class="trust-grid">
+      <div class="trust-item"><span>🚫</span> No ads</div>
+      <div class="trust-item"><span>🔒</span> No data collection</div>
+      <div class="trust-item"><span>📶</span> Works offline</div>
+      <div class="trust-item"><span>💳</span> No in-app purchases</div>
+      <div class="trust-item"><span>👶</span> COPPA compliant</div>
+    </div>
+  </section>
+
   <section class="support" id="support">
     <h2>Support</h2>
     <p>Having trouble or have a suggestion? We'd love to hear from you.</p>
-    <div class="support-card"><p style="margin-bottom:0.75rem;color:var(--text)">Email us at</p><a href="mailto:james@gainautomations.com" style="font-size:1.15rem">james@gainautomations.com</a><p style="margin-top:1rem;font-size:0.9rem;color:var(--text-light)">We typically respond within 24 hours.</p></div>
+    <div class="support-card">
+      <p style="margin-bottom: 0.75rem; color: var(--text-primary);">Email us at</p>
+      <a href="mailto:james@gainautomations.com" style="font-size: 1.15rem;">james@gainautomations.com</a>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+        We typically respond within 24 hours.
+      </p>
+    </div>
   </section>
+
   <section class="privacy" id="privacy">
     <h2>Privacy Policy</h2>
     <p class="updated">Last updated: May 2025</p>
-    <div class="privacy-summary">🔒 Short version: We collect zero personal data. The app works fully offline and never communicates with any server.</div>
+
+    <div class="privacy-summary">
+      🔒 Short version: We collect zero personal data. The app works fully offline and never communicates with any server.
+    </div>
+
     <h3>Who We Are</h3>
     <p>Mr. Wolf Timer & Clock Teacher ("the App") is developed and published by Gain Automations. If you have any questions about this policy, please contact us at <a href="mailto:privacy@gainautomations.com">privacy@gainautomations.com</a>.</p>
+
     <h3>Information We Collect</h3>
     <p>We collect no personal information whatsoever. The App does not require an account, does not ask for your name, email address, location, or any other personal details.</p>
     <p>The App stores only anonymous, device-local preferences (such as your chosen language and colour theme). This data never leaves your device and is not accessible to us.</p>
+
     <h3>Children's Privacy (COPPA & GDPR-K)</h3>
     <p>Mr. Wolf Timer & Clock Teacher is designed for children aged 4–10. We take children's privacy extremely seriously and fully comply with COPPA and the GDPR's provisions for children's data.</p>
-    <ul><li>We do not collect any personal data from children or adults</li><li>We do not display advertising of any kind</li><li>We do not include social features, chat, or external links</li><li>We do not use analytics or tracking SDKs</li><li>We do not sell or share any data with third parties</li></ul>
+    <ul>
+      <li>We do not collect any personal data from children or adults</li>
+      <li>We do not display advertising of any kind</li>
+      <li>We do not include social features, chat, or external links</li>
+      <li>We do not use analytics or tracking SDKs</li>
+      <li>We do not sell or share any data with third parties</li>
+    </ul>
+
     <h3>Internet Access</h3>
     <p>The App works completely offline. No internet connection is required or used at runtime. The only network activity occurs during the initial download from the App Store.</p>
+
     <h3>Third-Party Services</h3>
     <p>The App does not integrate any third-party SDKs, advertising networks, analytics platforms, or social media services.</p>
+
     <h3>Data Storage</h3>
     <p>All data (language preference, theme selection) is stored locally on your device using the operating system's standard local storage mechanisms. Uninstalling the App removes all such data.</p>
+
     <h3>In-App Purchases</h3>
     <p>There are no in-app purchases. The App is provided as a single, complete purchase with all features included.</p>
+
     <h3>Changes to This Policy</h3>
     <p>If we ever update this Privacy Policy, the new version will be posted at this URL and the "Last updated" date above will be changed.</p>
+
     <h3>Contact Us</h3>
     <p>For any privacy-related questions or concerns, please email us at <a href="mailto:privacy@gainautomations.com">privacy@gainautomations.com</a>.</p>
   </section>
+
   <footer>
     <p>&copy; 2026 James Kirby. All rights reserved.</p>
-    <p style="margin-top:0.5rem"><a href="#privacy">Privacy Policy</a> &middot; <a href="#support">Support</a></p>
+    <p style="margin-top: 0.5rem;">
+      <a href="#privacy">Privacy Policy</a> &middot; <a href="#support">Support</a>
+    </p>
   </footer>
+
+  <script>
+    (function() {
+      const container = document.getElementById('bubbles-bg');
+      const colors = ['c-purple','c-orange','c-green','c-teal','c-pink','c-yellow','c-red','c-blue','c-brown'];
+      const sizes = ['small','small','small','medium','medium','large','xl'];
+      const numColors = ['#A78BFA','#FB923C','#4ADE80','#2DD4BF','#F472B6','#FACC15','#F87171','#60A5FA','#C084FC','#FB7185','#34D399','#FBBF24'];
+
+      for (let i = 0; i < 35; i++) {
+        const bubble = document.createElement('div');
+        const size = sizes[Math.floor(Math.random() * sizes.length)];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        bubble.className = 'bubble ' + size + ' ' + color;
+        bubble.style.left = Math.random() * 100 + '%';
+        bubble.style.top = (40 + Math.random() * 80) + '%';
+        bubble.style.animationDuration = (15 + Math.random() * 25) + 's';
+        bubble.style.animationDelay = (Math.random() * 20) + 's';
+        container.appendChild(bubble);
+      }
+
+      for (let n = 1; n <= 12; n++) {
+        const num = document.createElement('div');
+        num.className = 'bg-number';
+        num.textContent = n;
+        num.style.left = (5 + Math.random() * 85) + '%';
+        num.style.top = (5 + Math.random() * 85) + '%';
+        num.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
+        num.style.color = numColors[n - 1];
+        num.style.animationDelay = (Math.random() * 15) + 's';
+        num.style.animationDuration = (18 + Math.random() * 12) + 's';
+        container.appendChild(num);
+      }
+
+      for (let i = 0; i < 40; i++) {
+        const star = document.createElement('div');
+        star.className = 'star-dot';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        star.style.animationDuration = (2 + Math.random() * 4) + 's';
+        container.appendChild(star);
+      }
+    })();
+  </script>
+
 </body>
 </html>
